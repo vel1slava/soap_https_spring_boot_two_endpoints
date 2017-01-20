@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/second/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="SecondService" targetNamespace="http://www.example.org/second/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://www.example.org/second/" elementFormDefault="unqualified"
+                   targetNamespace="http://www.example.org/second/" version="1.0">
+            <xs:complexType name="secondOperationRequest">
+                <xs:sequence>
+                    <xsd:element name="in" type="xsd:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="secondOperationResponse">
+                <xs:sequence>
+                    <xsd:element name="out" type="xsd:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="secondOperationRequest" type="tns:secondOperationRequest"/>
+            <xs:element name="secondOperationResponse" type="tns:secondOperationResponse"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="secondOperationRequest">
+        <wsdl:part element="tns:secondOperationRequest" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="secondOperationResponse">
+        <wsdl:part element="tns:secondOperationResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="SecondServicePortType">
+        <wsdl:operation name="executeSecondOperation">
+            <wsdl:input message="tns:secondOperationRequest" name="secondOperationRequest"/>
+            <wsdl:output message="tns:secondOperationResponse" name="secondOperationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SecondServiceSoapBinding" type="tns:SecondServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="executeSecondOperation">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="secondOperationRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="secondOperationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SecondService">
+        <wsdl:port binding="tns:SecondServiceSoapBinding" name="SecondServicePort">
+            <soap:address location="https://localhost:8443/firstWebService/services/secondService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

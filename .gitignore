@@ -1,0 +1,11 @@
+target/
+.settings/
+.project
+.classpath
+*.iml
+.idea/
+biz2bank-config.properties
+*/*.xlsx
+atlassian-ide-plugin.xml
+excel-log.xlsx
+war/

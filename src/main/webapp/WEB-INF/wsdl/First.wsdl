@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/first/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="FirstService" targetNamespace="http://www.example.org/first/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://www.example.org/first/" elementFormDefault="unqualified"
+                   targetNamespace="http://www.example.org/first/" version="1.0">
+            <xs:complexType name="firstOperationRequest">
+                <xs:sequence>
+                    <xsd:element name="in" type="xsd:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="firstOperationResponse">
+                <xs:sequence>
+                    <xsd:element name="out" type="xsd:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="firstOperationRequest" type="tns:firstOperationRequest"/>
+            <xs:element name="firstOperationResponse" type="tns:firstOperationResponse"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="firstOperationRequest">
+        <wsdl:part element="tns:firstOperationRequest" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="firstOperationResponse">
+        <wsdl:part element="tns:firstOperationResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="FirstServicePortType">
+        <wsdl:operation name="executeFirstOperation">
+            <wsdl:input message="tns:firstOperationRequest" name="firstOperationRequest"/>
+            <wsdl:output message="tns:firstOperationResponse" name="firstOperationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FirstServiceSoapBinding" type="tns:FirstServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="executeFirstOperation">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="firstOperationRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="firstOperationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FirstService">
+        <wsdl:port binding="tns:FirstServiceSoapBinding" name="FirstServicePort">
+            <soap:address location="https://localhost:8443/firstWebService/services/firstService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
